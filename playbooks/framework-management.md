@@ -55,7 +55,7 @@ git init
 
 ```bash
 # Add framework remote
-git remote add framework https://github.com/Systemsaholic/Claude-Workspace-Framework.git
+git remote add framework https://github.com/YOUR_ORG/Claude-Workspace-Framework.git
 
 # Pull framework as subtree
 git subtree add --prefix=framework framework main --squash
@@ -183,7 +183,7 @@ Always pull latest changes before pushing to avoid conflicts:
 
 ### "Remote 'framework' not found"
 ```bash
-git remote add framework https://github.com/Systemsaholic/Claude-Workspace-Framework.git
+git remote add framework https://github.com/YOUR_ORG/Claude-Workspace-Framework.git
 ```
 
 ### Merge Conflicts

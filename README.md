@@ -7,8 +7,8 @@ A reusable toolkit for deploying AI-assisted operational workspaces.
 This framework provides standardized packages, playbooks, and templates for building Claude-powered workspaces for any business or project.
 
 **Live Examples:**
-- **IT-Admin** - MSP operations (Systemsaholic)
-- **Phoenix-Voyages** - Host travel agency
+- **IT-Admin** - MSP operations (Acme MSP)
+- **Phoenix-Voyages** - Host travel agency (Horizon Travel)
 
 ## Packages
 

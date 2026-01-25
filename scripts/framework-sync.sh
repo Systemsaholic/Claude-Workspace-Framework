@@ -50,7 +50,7 @@ EXAMPLES:
     ./framework-sync.sh push
 
     # Initialize in a new project
-    FRAMEWORK_REMOTE=https://github.com/Systemsaholic/Claude-Workspace-Framework.git
+    FRAMEWORK_REMOTE=https://github.com/YOUR_ORG/Claude-Workspace-Framework.git
     ./framework-sync.sh init
 
 EOF
@@ -151,7 +151,7 @@ cmd_init() {
             print_status "Either add remote first:"
             echo "    git remote add $FRAMEWORK_REMOTE <url>"
             print_status "Or set FRAMEWORK_URL environment variable:"
-            echo "    FRAMEWORK_URL=https://github.com/Systemsaholic/Claude-Workspace-Framework.git ./framework-sync.sh init"
+            echo "    FRAMEWORK_URL=https://github.com/YOUR_ORG/Claude-Workspace-Framework.git ./framework-sync.sh init"
             exit 1
         fi
 

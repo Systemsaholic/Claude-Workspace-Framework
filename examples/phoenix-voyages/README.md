@@ -1,20 +1,20 @@
-# Phoenix Voyages Workspace Example
+# Horizon Travel Workspace Example
 
 Reference implementation for a Host Travel Agency operations workspace.
 
 ## Business Context
 
-**Organization:** Phoenix Voyages
+**Organization:** Horizon Travel
 **Industry:** Travel / Host Agency
 **Workspace Purpose:** ITA (Independent Travel Advisor) management, recruitment, marketing
 
 ## Host Agency Model
 
-Phoenix Voyages is a **Host Agency** - clients are Travel Advisors, not travelers.
+Horizon Travel is a **Host Agency** - clients are Travel Advisors, not travelers.
 
 | Role | Description |
 |------|-------------|
-| Host Agency | Phoenix Voyages - provides infrastructure |
+| Host Agency | Horizon Travel - provides infrastructure |
 | ITA | Independent Travel Advisor - sells travel |
 | Traveler | End customer (ITA's client, not Phoenix's) |
 | Consortium | Travel Leaders Network |
@@ -68,7 +68,7 @@ Phoenix Voyages is a **Host Agency** - clients are Travel Advisors, not traveler
 ## Folder Structure
 
 ```
-Phoenix-Voyages/
+Horizon-Travel/
 ├── CLAUDE.md
 ├── advisors.yaml
 ├── suppliers.yaml

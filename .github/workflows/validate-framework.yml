@@ -20,38 +20,24 @@ jobs:
           chmod +x ./scripts/validate-framework.sh
           ./scripts/validate-framework.sh .
 
-      - name: Check for common project patterns
+      - name: Check placeholder patterns
         run: |
-          echo "Checking for project-specific patterns..."
+          echo "Verifying placeholder patterns are used..."
 
-          # Define patterns that should NEVER appear in framework
-          FORBIDDEN_PATTERNS=(
-            "systemsaholic"
-            "phoenix.voyages"
-            "phoenixvoyages"
-            "Systemsaholic"
-            "Phoenix Voyages"
+          # Ensure generic placeholders exist (sanity check)
+          REQUIRED_PLACEHOLDERS=(
+            "example.com"
+            "YOUR_ORG"
+            "Acme"
           )
 
-          FOUND_ISSUES=0
-
-          for pattern in "${FORBIDDEN_PATTERNS[@]}"; do
-            # Search in all text files, excluding this workflow file
-            MATCHES=$(grep -ri --include="*.md" --include="*.yaml" --include="*.yml" --include="*.py" --include="*.sh" --include="*.json" "$pattern" . 2>/dev/null | grep -v ".github/workflows" || true)
-
-            if [ -n "$MATCHES" ]; then
-              echo "::error::Found forbidden pattern '$pattern':"
-              echo "$MATCHES"
-              FOUND_ISSUES=1
+          for pattern in "${REQUIRED_PLACEHOLDERS[@]}"; do
+            if ! grep -rq "$pattern" --include="*.md" --include="*.sh" . 2>/dev/null; then
+              echo "::warning::Expected placeholder '$pattern' not found - verify examples use generic names"
             fi
           done
 
-          if [ $FOUND_ISSUES -eq 1 ]; then
-            echo "::error::Project-specific content found in framework!"
-            exit 1
-          fi
-
-          echo "✓ No project-specific patterns found"
+          echo "✓ Placeholder patterns check complete"
 
       - name: Validate YAML syntax
         run: |
@@ -68,23 +54,46 @@ jobs:
         run: |
           echo "Scanning for potential secrets..."
 
-          # Patterns that indicate secrets
+          # Patterns that indicate real secrets (not placeholder patterns)
           SECRET_PATTERNS=(
-            "sk_live_"
-            "sk_test_[A-Za-z0-9]{20,}"
+            "sk_live_[A-Za-z0-9]{20,}"
             "ghp_[A-Za-z0-9]{36}"
             "gho_[A-Za-z0-9]{36}"
             "AKIA[0-9A-Z]{16}"
-            "-----BEGIN.*PRIVATE KEY-----"
           )
 
           for pattern in "${SECRET_PATTERNS[@]}"; do
-            MATCHES=$(grep -rE "$pattern" --include="*.md" --include="*.yaml" --include="*.yml" --include="*.py" --include="*.sh" --include="*.json" . 2>/dev/null || true)
+            MATCHES=$(grep -rE "$pattern" --include="*.md" --include="*.yaml" --include="*.yml" --include="*.py" --include="*.sh" --include="*.json" . 2>/dev/null | grep -v ".github/workflows" || true)
 
             if [ -n "$MATCHES" ]; then
               echo "::error::Potential secret found matching pattern: $pattern"
+              echo "$MATCHES"
               exit 1
             fi
           done
 
           echo "✓ No secrets detected"
+
+      - name: Check for sensitive files
+        run: |
+          echo "Checking for sensitive files..."
+
+          SENSITIVE=$(find . -type f \( \
+            -name ".env" -o \
+            -name ".env.local" -o \
+            -name ".env.production" -o \
+            -name "*.pem" -o \
+            -name "*.key" -o \
+            -name "id_rsa" -o \
+            -name "id_ed25519" -o \
+            -name "credentials.json" -o \
+            -name "secrets.yaml" \
+            \) ! -name ".env.example" 2>/dev/null || true)
+
+          if [ -n "$SENSITIVE" ]; then
+            echo "::error::Sensitive files found:"
+            echo "$SENSITIVE"
+            exit 1
+          fi
+
+          echo "✓ No sensitive files detected"

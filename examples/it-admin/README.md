@@ -4,7 +4,7 @@ Reference implementation for an MSP (Managed Service Provider) operations worksp
 
 ## Business Context
 
-**Organization:** Systemsaholic
+**Organization:** Acme MSP
 **Industry:** IT Services / MSP
 **Workspace Purpose:** Client management, ticket routing, project tracking
 

@@ -9,7 +9,7 @@ Standardized terminology for AI workspace development.
 ### Workspace
 A complete AI-assisted operational environment for a business or project. Contains all configuration, data, automation, and documentation needed for Claude to operate autonomously.
 
-**Examples:** IT-Admin (MSP), Phoenix-Voyages (Travel Agency)
+**Examples:** IT-Admin (Acme MSP), Phoenix-Voyages (Horizon Travel)
 
 ### Package
 A reusable, self-contained component that provides specific functionality. Packages can be deployed independently or combined to build a complete workspace.
