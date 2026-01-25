@@ -1,0 +1,90 @@
+name: Validate Framework Purity
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Check for project-specific content
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run framework validator
+        run: |
+          chmod +x ./scripts/validate-framework.sh
+          ./scripts/validate-framework.sh .
+
+      - name: Check for common project patterns
+        run: |
+          echo "Checking for project-specific patterns..."
+
+          # Define patterns that should NEVER appear in framework
+          FORBIDDEN_PATTERNS=(
+            "systemsaholic"
+            "phoenix.voyages"
+            "phoenixvoyages"
+            "Systemsaholic"
+            "Phoenix Voyages"
+          )
+
+          FOUND_ISSUES=0
+
+          for pattern in "${FORBIDDEN_PATTERNS[@]}"; do
+            # Search in all text files, excluding this workflow file
+            MATCHES=$(grep -ri --include="*.md" --include="*.yaml" --include="*.yml" --include="*.py" --include="*.sh" --include="*.json" "$pattern" . 2>/dev/null | grep -v ".github/workflows" || true)
+
+            if [ -n "$MATCHES" ]; then
+              echo "::error::Found forbidden pattern '$pattern':"
+              echo "$MATCHES"
+              FOUND_ISSUES=1
+            fi
+          done
+
+          if [ $FOUND_ISSUES -eq 1 ]; then
+            echo "::error::Project-specific content found in framework!"
+            exit 1
+          fi
+
+          echo "✓ No project-specific patterns found"
+
+      - name: Validate YAML syntax
+        run: |
+          echo "Validating YAML files..."
+          for file in $(find . -name "*.yaml" -o -name "*.yml" | grep -v node_modules); do
+            python3 -c "import yaml; yaml.safe_load(open('$file'))" 2>/dev/null || {
+              echo "::error::Invalid YAML: $file"
+              exit 1
+            }
+          done
+          echo "✓ All YAML files valid"
+
+      - name: Check for secrets in files
+        run: |
+          echo "Scanning for potential secrets..."
+
+          # Patterns that indicate secrets
+          SECRET_PATTERNS=(
+            "sk_live_"
+            "sk_test_[A-Za-z0-9]{20,}"
+            "ghp_[A-Za-z0-9]{36}"
+            "gho_[A-Za-z0-9]{36}"
+            "AKIA[0-9A-Z]{16}"
+            "-----BEGIN.*PRIVATE KEY-----"
+          )
+
+          for pattern in "${SECRET_PATTERNS[@]}"; do
+            MATCHES=$(grep -rE "$pattern" --include="*.md" --include="*.yaml" --include="*.yml" --include="*.py" --include="*.sh" --include="*.json" . 2>/dev/null || true)
+
+            if [ -n "$MATCHES" ]; then
+              echo "::error::Potential secret found matching pattern: $pattern"
+              exit 1
+            fi
+          done
+
+          echo "✓ No secrets detected"

@@ -39,7 +39,7 @@ Phoenix Voyages is a **Host Agency** - clients are Travel Advisors, not traveler
 ## MCP Servers (Planned)
 
 - **telegram** - Notifications
-- **phoenix-email** - cPanel IMAP (claude@phoenixvoyages.ca)
+- **phoenix-email** - cPanel IMAP (claude@travelhost.example.com)
 - **groundhogg** - Marketing automation CRM
 - **later-dev** - Social media scheduling
 - **nextcloud** - File sharing
