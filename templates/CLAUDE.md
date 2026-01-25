@@ -80,14 +80,24 @@ All project emails use standardized subject tags:
 ├── [registry].yaml           # Primary registry
 ├── .mcp.json                 # MCP configuration
 │
+├── framework/                # Framework subtree (syncs with upstream)
+│   ├── packages/             # Core framework packages
+│   ├── playbooks/            # Deployment guides
+│   ├── templates/            # Skeleton files
+│   └── scripts/              # Helper scripts
+│
+├── workspace/                # Project-specific (never pushed upstream)
+│   ├── registries/           # Your entity data
+│   ├── skills/               # Your custom skills
+│   └── memory/               # Your followups & checks
+│
 ├── [entities]/               # Per-entity folders
-├── operations/               # Automation & skills
-│   ├── skills/
-│   ├── scripts/
-│   └── memory/
+├── mcp-servers/              # Custom MCP implementations
 ├── knowledge-base/           # SOPs & guides
 └── infrastructure/           # Server config
 ```
+
+> **Framework vs Workspace:** The `framework/` directory syncs with the upstream template repo. Project-specific content stays in `workspace/` and other directories.
 
 ## Available Skills
 
@@ -110,6 +120,14 @@ All project emails use standardized subject tags:
 | `/status` | Check system connectivity |
 | `/email` | Draft and send emails |
 | `/report` | Generate reports |
+
+### Framework Management
+
+| Command | Purpose |
+|---------|---------|
+| `/contribute-framework` | Push improvements to upstream framework |
+
+> **Contributing Improvements:** When you make improvements to framework code (in `framework/`), use `/contribute-framework` to push them upstream so other workspaces benefit.
 
 ## MCP Servers
 
