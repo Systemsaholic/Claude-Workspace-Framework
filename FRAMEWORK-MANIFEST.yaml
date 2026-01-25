@@ -1,0 +1,135 @@
+# Framework Manifest
+# This file tracks all framework capabilities for update detection
+# When pulling updates, the workspace can compare this to detect new features
+
+version: "1.0.0"
+updated: "2026-01-25"
+
+# Core packages
+packages:
+  memory-system:
+    version: "1.0.0"
+    description: "Persistent state and scheduling (followups, checks)"
+    path: packages/memory-system/
+
+  session-hub:
+    version: "1.0.0"
+    description: "Session management and routing"
+    path: packages/session-hub/
+
+  email-system:
+    version: "1.0.0"
+    description: "Dual-identity email handling"
+    path: packages/email-system/
+
+  yaml-registries:
+    version: "1.0.0"
+    description: "File-based entity storage"
+    path: packages/yaml-registries/
+
+  skills-framework:
+    version: "1.0.0"
+    description: "Markdown-defined slash commands"
+    path: packages/skills-framework/
+
+  notification-layer:
+    version: "1.0.0"
+    description: "Telegram alerts and escalation"
+    path: packages/notification-layer/
+
+  mcp-templates:
+    version: "1.0.0"
+    description: "MCP server boilerplate and patterns"
+    path: packages/mcp-templates/
+
+# Framework-provided skills (available in all workspaces)
+skills:
+  contribute-framework:
+    version: "1.0.0"
+    description: "Push improvements to upstream framework"
+    path: templates/skills/contribute-framework.md
+    command: "/contribute-framework"
+
+# Playbooks
+playbooks:
+  new-workspace:
+    version: "1.0.0"
+    description: "Bootstrap a new workspace from scratch"
+    path: playbooks/new-workspace.md
+
+  deploy-session-hub:
+    version: "1.0.0"
+    description: "Add session management to workspace"
+    path: playbooks/deploy-session-hub.md
+
+  deploy-memory-system:
+    version: "1.0.0"
+    description: "Add scheduling and persistence"
+    path: playbooks/deploy-memory-system.md
+
+  deploy-email-system:
+    version: "1.0.0"
+    description: "Add dual-identity email"
+    path: playbooks/deploy-email-system.md
+
+  build-mcp-server:
+    version: "1.0.0"
+    description: "Create custom MCP servers"
+    path: playbooks/build-mcp-server.md
+
+  framework-management:
+    version: "1.0.0"
+    description: "Manage framework subtree and contributions"
+    path: playbooks/framework-management.md
+
+# Scripts
+scripts:
+  framework-sync:
+    version: "1.0.0"
+    description: "Pull/push framework updates"
+    path: scripts/framework-sync.sh
+
+  contribute-framework:
+    version: "1.0.0"
+    description: "Contribute improvements upstream"
+    path: scripts/contribute-framework.sh
+
+  validate-framework:
+    version: "1.0.0"
+    description: "Check for project-specific content"
+    path: scripts/validate-framework.sh
+
+  install-hooks:
+    version: "1.0.0"
+    description: "Install git hooks for validation"
+    path: scripts/install-hooks.sh
+
+# Templates
+templates:
+  CLAUDE.md:
+    version: "1.0.0"
+    description: "Workspace context template"
+
+  session-registry.yaml:
+    version: "1.0.0"
+    description: "Session management template"
+
+  checks.yaml:
+    version: "1.0.0"
+    description: "Recurring tasks template"
+
+  followups.yaml:
+    version: "1.0.0"
+    description: "One-time tasks template"
+
+  registry.yaml:
+    version: "1.0.0"
+    description: "Entity registry template"
+
+  skill-template.md:
+    version: "1.0.0"
+    description: "Skill definition template"
+
+  mcp-boilerplate:
+    version: "1.0.0"
+    description: "MCP server starter code"

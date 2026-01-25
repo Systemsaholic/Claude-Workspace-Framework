@@ -82,6 +82,14 @@ cmd_pull() {
     git subtree pull --prefix="$FRAMEWORK_PREFIX" "$FRAMEWORK_REMOTE" "$FRAMEWORK_BRANCH" --squash -m "Update framework from upstream"
 
     print_success "Framework updated successfully!"
+
+    # Run update handler to show what's new
+    UPDATE_SCRIPT="$FRAMEWORK_PREFIX/scripts/framework-update.sh"
+    if [ -f "$UPDATE_SCRIPT" ]; then
+        echo ""
+        print_status "Checking for new capabilities..."
+        FRAMEWORK_DIR="$FRAMEWORK_PREFIX" bash "$UPDATE_SCRIPT" || true
+    fi
 }
 
 cmd_push() {
