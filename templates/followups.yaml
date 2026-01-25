@@ -1,0 +1,49 @@
+# [WORKSPACE] - Scheduled Followups
+# One-time tasks that trigger at a specific time
+#
+# Add entries to schedule tasks. The memory-cron will process due items.
+#
+# Fields:
+#   id: unique-identifier (required)
+#   created_by_session: session that created this (required)
+#   created_at: ISO timestamp when created (required)
+#   due: ISO timestamp with timezone when to trigger (required)
+#   type: task type - send_email, check_status, review, reminder, custom (required)
+#   description: detailed instructions for what to do (required)
+#   context: additional data needed (optional)
+#   target_session: route to existing session (optional)
+#   status: pending, completed, cancelled (required)
+
+followups: []
+
+# Example entries:
+#
+# - id: followup-client-approval
+#   created_by_session: P-001
+#   created_at: "2026-01-25T10:00:00Z"
+#   due: "2026-01-28T09:00:00-05:00"
+#   type: send_email
+#   description: |
+#     Follow up with client about project approval.
+#     Check if they reviewed the proposal.
+#     If no response, send gentle reminder.
+#   context:
+#     client_name: John Smith
+#     client_email: john@acme.com
+#     project: Website Redesign
+#   target_session: P-001
+#   status: pending
+#
+# - id: check-payment-received
+#   created_by_session: I-OPS
+#   created_at: "2026-01-25T14:00:00Z"
+#   due: "2026-02-01T10:00:00-05:00"
+#   type: check_status
+#   description: |
+#     Verify that invoice #1234 has been paid.
+#     Check accounting system for payment.
+#   context:
+#     invoice_id: "1234"
+#     client: ACME
+#     amount: 5000
+#   status: pending

@@ -1,0 +1,71 @@
+# [WORKSPACE] - Session Registry
+# Manages Claude session routing and tracking
+
+sessions:
+  I-OPS:
+    name: Operations Hub
+    category: internal
+    status: active
+    created: "YYYY-MM-DDTHH:MM:SSZ"
+    last_activity: "YYYY-MM-DDTHH:MM:SSZ"
+    tmux_session: I-OPS
+    special: operations_hub
+    description: |
+      Main operations session for this workspace.
+      Handles general queries, email, and routing.
+    keywords:
+      - operations
+      - general
+      - email
+
+# Session counters (auto-increment when creating new sessions)
+counters:
+  P: 0   # Projects
+  S: 0   # Support
+  I: 1   # Internal (I-OPS exists)
+  # Add more prefixes as needed for your workspace:
+  # R: 0   # Recruitment
+  # A: 0   # Advisor
+  # M: 0   # Marketing
+  # C: 0   # Client
+
+# Entity code prefixes (map entity codes to session prefixes)
+# Example: client ACME gets sessions like A-001
+entity_prefixes: {}
+  # acme: A
+  # kenworth: K
+
+# Email tag registry (tracks active email tags)
+email_tags: {}
+  # P:P-001:
+  #   type: project
+  #   session_id: P-001
+  #   context: ProjectName
+  #   thread_ids: []
+  #   created_at: "YYYY-MM-DDTHH:MM:SSZ"
+
+# Routing rules for incoming emails/tasks
+routing_rules:
+  keywords:
+    - pattern: "(urgent|emergency)"
+      priority: high
+      action: alert_telegram
+      description: High-priority keywords
+    # Add more patterns:
+    # - pattern: "(invoice|billing)"
+    #   category: internal
+    #   description: Billing-related
+
+  domains: {}
+    # Map sender domains to session prefixes
+    # acme.com: A
+    # example.com: C
+
+# Snooze/defer items
+snooze:
+  emails: {}
+  tasks: {}
+  projects: {}
+
+# Active investigations (for tracking ongoing issues)
+investigations: {}

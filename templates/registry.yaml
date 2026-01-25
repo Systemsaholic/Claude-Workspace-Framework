@@ -1,0 +1,107 @@
+# [WORKSPACE] - Entity Registry Template
+# Replace [ENTITY] with your entity type (clients, advisors, suppliers, etc.)
+#
+# Usage:
+#   1. Copy this file to your workspace
+#   2. Rename to [entities].yaml (e.g., clients.yaml, advisors.yaml)
+#   3. Customize fields for your entity type
+#   4. Remove example entries and comments
+
+# Entity definitions
+[entities]:
+  # Example entry - customize or remove
+  # ENTITY-001:
+  #   name: Example Entity
+  #   code: EX
+  #   status: active
+  #   category: default
+  #   created: "YYYY-MM-DDTHH:MM:SSZ"
+  #
+  #   # Contact information
+  #   contact:
+  #     primary_name: John Doe
+  #     email: john@example.com
+  #     phone: "+1-555-123-4567"
+  #     address:
+  #       street: "123 Main St"
+  #       city: "City"
+  #       state: "ST"
+  #       postal: "12345"
+  #       country: "US"
+  #
+  #   # Business details (customize for entity type)
+  #   details:
+  #     type: standard
+  #     tier: basic
+  #     start_date: "2026-01-01"
+  #     notes: |
+  #       Additional notes about this entity.
+  #
+  #   # Linked sessions
+  #   sessions: []
+  #
+  #   # Tags for categorization
+  #   tags:
+  #     - example
+  #     - template
+
+# Auto-increment counter for entity IDs
+counter: 0
+
+# Category definitions (customize for your entity type)
+categories:
+  # default:
+  #   name: Default
+  #   description: Standard entities
+
+# Status definitions
+statuses:
+  active:
+    name: Active
+    description: Currently active entity
+  inactive:
+    name: Inactive
+    description: Temporarily inactive
+  archived:
+    name: Archived
+    description: No longer active, kept for records
+
+# Custom fields schema (document your entity-specific fields)
+schema:
+  # Define required and optional fields for this entity type
+  required:
+    - name
+    - code
+    - status
+  optional:
+    - contact
+    - details
+    - sessions
+    - tags
+
+# Example entity types and their typical fields:
+#
+# CLIENTS (clients.yaml):
+#   - company_name, contact_person, email, phone
+#   - industry, size, contract_value
+#   - account_manager, start_date, renewal_date
+#
+# ADVISORS (advisors.yaml):
+#   - full_name, email, phone
+#   - specialization, experience_years
+#   - commission_rate, status, certifications
+#
+# SUPPLIERS (suppliers.yaml):
+#   - company_name, contact_person, email
+#   - product_categories, payment_terms
+#   - account_number, contract_expiry
+#
+# PROJECTS (projects.yaml):
+#   - name, client_id, status
+#   - start_date, deadline, budget
+#   - team_members, milestones
+#
+# EMPLOYEES (employees.yaml):
+#   - full_name, email, department
+#   - role, hire_date, manager
+#   - skills, certifications

@@ -1,0 +1,62 @@
+# [WORKSPACE] - Recurring Checks
+# Scheduled tasks that repeat on a schedule
+#
+# Add entries for recurring tasks. The memory-cron will process due items
+# and reschedule them for the next occurrence.
+#
+# Fields:
+#   id: unique-identifier (required)
+#   check_at: next scheduled run ISO timestamp (required)
+#   recurrence: daily, weekly, monthly, interval (required)
+#   recurrence_hour: hour to run 0-23 (required)
+#   recurrence_day: for weekly - monday, tuesday, etc. (optional)
+#   recurrence_date: for monthly - day of month 1-31 (optional)
+#   interval_hours: for interval - hours between runs (optional)
+#   type: check type - health_check, review, report, custom (required)
+#   skill: skill to invoke (optional)
+#   description: what to check (required)
+#   status: active, paused, disabled (required)
+
+checks: []
+
+# Example entries:
+#
+# Daily health check at 6am
+# - id: health-daily
+#   check_at: "2026-01-26T06:00:00Z"
+#   recurrence: daily
+#   recurrence_hour: 6
+#   type: health_check
+#   skill: /status
+#   description: Daily infrastructure and connectivity check
+#   status: active
+#
+# Weekly pipeline review on Monday at 9am
+# - id: pipeline-weekly
+#   check_at: "2026-01-27T09:00:00Z"
+#   recurrence: weekly
+#   recurrence_day: monday
+#   recurrence_hour: 9
+#   type: review
+#   skill: /report weekly
+#   description: Weekly review of active projects and pipeline
+#   status: active
+#
+# Monthly billing check on 1st at 8am
+# - id: billing-monthly
+#   check_at: "2026-02-01T08:00:00Z"
+#   recurrence: monthly
+#   recurrence_date: 1
+#   recurrence_hour: 8
+#   type: review
+#   description: Monthly billing review and invoice generation
+#   status: active
+#
+# Every 4 hours monitoring check
+# - id: monitor-interval
+#   check_at: "2026-01-25T16:00:00Z"
+#   recurrence: interval
+#   interval_hours: 4
+#   type: health_check
+#   description: Periodic service monitoring
+#   status: active
