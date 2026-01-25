@@ -1,0 +1,114 @@
+# MCP Server Catalog
+# Available MCP servers that can be deployed to workspaces
+#
+# Deploy with: ./framework/scripts/deploy-mcp.sh <mcp-name> [mcp-name...]
+
+catalog_version: "1.0.0"
+repository: "git@github.com:Systemsaholic/mcp-servers.git"
+repository_https: "https://github.com/Systemsaholic/mcp-servers.git"
+
+servers:
+
+  # Infrastructure
+  cpanel-mcp:
+    name: "cPanel/WHM MCP Server"
+    description: "Manage cPanel/WHM web hosting servers"
+    category: infrastructure
+    path: "cpanel-mcp"
+    requires:
+      - python>=3.10
+      - aiohttp
+    env_vars:
+      - CPANEL_WHM_URL
+      - CPANEL_API_TOKEN
+      - CPANEL_USERNAME
+
+  # Communication
+  email-mcp:
+    name: "Email MCP Server"
+    description: "IMAP/SMTP email management"
+    category: communication
+    path: "email-mcp"
+    requires:
+      - python>=3.10
+      - aiosmtplib
+      - aioimaplib
+    env_vars:
+      - IMAP_HOST
+      - SMTP_HOST
+      - EMAIL_USER
+      - EMAIL_PASSWORD
+
+  telegram-mcp:
+    name: "Telegram MCP Server"
+    description: "Telegram bot notifications and messaging"
+    category: communication
+    path: "telegram-mcp"
+    requires:
+      - python>=3.10
+      - python-telegram-bot
+    env_vars:
+      - TELEGRAM_BOT_TOKEN
+      - TELEGRAM_CHAT_ID
+
+  # CRM / Marketing
+  groundhogg-mcp:
+    name: "Groundhogg MCP Server"
+    description: "WordPress CRM and marketing automation"
+    category: crm
+    path: "groundhogg-mcp"
+    requires:
+      - python>=3.10
+      - httpx
+    env_vars:
+      - GROUNDHOGG_URL
+      - GROUNDHOGG_API_KEY
+      - GROUNDHOGG_API_SECRET
+
+  # Productivity
+  nextcloud-mcp:
+    name: "Nextcloud MCP Server"
+    description: "Nextcloud file and calendar management"
+    category: productivity
+    path: "nextcloud-mcp"
+    requires:
+      - python>=3.10
+      - httpx
+    env_vars:
+      - NEXTCLOUD_URL
+      - NEXTCLOUD_USER
+      - NEXTCLOUD_PASSWORD
+
+  # Secrets
+  vaultwarden-mcp:
+    name: "Vaultwarden MCP Server"
+    description: "Self-hosted Bitwarden password manager"
+    category: secrets
+    path: "vaultwarden-mcp"
+    requires:
+      - python>=3.10
+      - httpx
+    env_vars:
+      - VAULTWARDEN_URL
+      - VAULTWARDEN_API_KEY
+
+  # Documents
+  docuseal-mcp:
+    name: "Docuseal MCP Server"
+    description: "E-signature and document management"
+    category: documents
+    path: "docuseal-mcp"
+    requires:
+      - python>=3.10
+      - httpx
+    env_vars:
+      - DOCUSEAL_URL
+      - DOCUSEAL_API_KEY
+
+categories:
+  infrastructure: "Server and hosting management"
+  communication: "Email, messaging, notifications"
+  crm: "Customer relationship management"
+  productivity: "Files, calendar, tasks"
+  secrets: "Password and credential management"
+  documents: "Document signing and management"
