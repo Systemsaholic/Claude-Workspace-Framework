@@ -42,13 +42,14 @@ jobs:
       - name: Validate YAML syntax
         run: |
           echo "Validating YAML files..."
-          for file in $(find . -name "*.yaml" -o -name "*.yml" | grep -v node_modules); do
+          # Skip template files (they have placeholder syntax like [entities]:)
+          for file in $(find . -name "*.yaml" -o -name "*.yml" | grep -v node_modules | grep -v templates/); do
             python3 -c "import yaml; yaml.safe_load(open('$file'))" 2>/dev/null || {
               echo "::error::Invalid YAML: $file"
               exit 1
             }
           done
-          echo "✓ All YAML files valid"
+          echo "✓ All YAML files valid (templates excluded)"
 
       - name: Check for secrets in files
         run: |
