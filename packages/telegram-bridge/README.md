@@ -173,12 +173,44 @@ export SYSTEM_PROMPT_FILE=/path/to/custom/prompt.txt
 
 Adjust `MAX_HISTORY_LENGTH` in `service.py` (default: 20 messages).
 
-### Claude Model
+### Claude Model & Rate Limits
 
-Change model in `.env`:
+**Recommended: Claude 3.5 Haiku** for Telegram interactions:
 
 ```bash
-CLAUDE_MODEL=claude-sonnet-4-20250514  # or other models
+CLAUDE_MODEL=claude-3-5-haiku-20241022
+MAX_TOKENS=2048
+```
+
+**Why Haiku?**
+- Lower token usage per request
+- Faster response times (better for chat UX)
+- Works well within API rate limits
+- Handles tool use effectively
+
+**Rate Limit Considerations:**
+
+Anthropic API has organization-level rate limits. With MCP tools:
+- Each API call sends all tool definitions (thousands of tokens)
+- Tool use loops make multiple API calls per message
+- Conversation history adds tokens each turn
+
+**Built-in protections:**
+- 2-second minimum between API calls
+- History limited to 10 messages
+- Concise system prompt
+- Graceful rate limit error handling
+
+**Upgrade Path - Two-Tier System:**
+
+If Haiku lacks capability, implement prefix routing:
+
+```python
+# Users prefix with /tool for complex operations
+if message.startswith("/tool "):
+    model = "claude-sonnet-4-20250514"
+else:
+    model = "claude-3-5-haiku-20241022"
 ```
 
 ## Monitoring

@@ -206,7 +206,12 @@ async def process_with_claude(chat_id: str, user_message: str) -> str:
                         })
 
             # Add assistant message and tool results to history
-            history.append({"role": "assistant", "content": assistant_content})
+            # Filter out thinking blocks - they cannot be modified when sent back to API
+            filtered_content = [
+                block for block in assistant_content
+                if getattr(block, 'type', None) not in ('thinking', 'redacted_thinking')
+            ]
+            history.append({"role": "assistant", "content": filtered_content})
             history.append({"role": "user", "content": tool_results})
 
             # Continue the conversation
@@ -225,7 +230,12 @@ async def process_with_claude(chat_id: str, user_message: str) -> str:
                 final_text += block.text
 
         # Add final response to history
-        history.append({"role": "assistant", "content": response.content})
+        # Filter out thinking blocks - they cannot be modified when sent back to API
+        filtered_final_content = [
+            block for block in response.content
+            if getattr(block, 'type', None) not in ('thinking', 'redacted_thinking')
+        ]
+        history.append({"role": "assistant", "content": filtered_final_content})
         conversation_history[chat_id] = history
 
         return final_text or "I completed the task but have no text response."
