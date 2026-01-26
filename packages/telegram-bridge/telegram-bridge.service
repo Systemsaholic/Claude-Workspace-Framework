@@ -1,0 +1,20 @@
+[Unit]
+Description=Telegram Bridge Service (MCP-Enabled)
+After=network.target
+
+[Service]
+Type=simple
+User=your_user
+Group=your_group
+WorkingDirectory=/path/to/telegram-bridge
+Environment="PATH=/path/to/venv/bin"
+ExecStart=/path/to/venv/bin/python service.py
+Restart=always
+RestartSec=10
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
